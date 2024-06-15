@@ -102,10 +102,8 @@ public:
             decode_text += decode_letter(HaffmanTree, encode_text, iter);
 
         return decode_text;
-        
     }
 
-    
 };
 
 
