@@ -3,14 +3,14 @@ import pickle
 
 file_name = input('Enter name file ')
 
-#make haffman code
-subprocess.call('c++ src/haffman.cpp -o haffman')
+#make huffman code
+subprocess.call('c++ src/huffman.cpp -o huffman')
 if input('Your os windows/linux ')[0].lower() == 'w':
-    subprocess.call(f'./haffman.exe {file_name}')
+    subprocess.call(f'./huffman.exe {file_name}')
 else:
-    subprocess.call(f'./haffman.out {file_name}')
+    subprocess.call(f'./huffman.out {file_name}')
 
-#get haffman code
+#get huffman code
 with open('output.txt') as file:
     n = int(file.readline())
     codes = dict()

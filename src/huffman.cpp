@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct Haffman{
+struct Huffman{
 
     struct Node{
         char word;
@@ -21,7 +21,7 @@ struct Haffman{
         }
     };
     
-    Node* HaffmanTree = nullptr;
+    Node* HuffmanTree = nullptr;
     unordered_map<char, string>code;
 
 private:
@@ -39,7 +39,7 @@ private:
         return root;
     }
 
-    Node* build_HaffmanTree(const string& text)
+    Node* build_HuffmanTree(const string& text)
     {
         unordered_map<char, int>count;
         for(char u: text)
@@ -85,9 +85,9 @@ private:
 public:
     string encode(const string& text)
     {
-        HaffmanTree = build_HaffmanTree(text);
+        HuffmanTree = build_HuffmanTree(text);
         
-        get_code(HaffmanTree, code);
+        get_code(HuffmanTree, code);
         
         string encode_text = "";
         for(char u: text)
@@ -101,7 +101,7 @@ public:
         string decode_text = "";
         int iter = 0;
         while(iter < encode_text.size())
-            decode_text += decode_letter(HaffmanTree, encode_text, iter);
+            decode_text += decode_letter(HuffmanTree, encode_text, iter);
 
         return decode_text;
     }
@@ -129,13 +129,13 @@ int main(int size, const char** argv)
 
     //cout << "Size file : " << fin.tellg() << " byte" << '\n';
 
-    Haffman haffman;
-    string encode = haffman.encode(text);
+    Huffman huffman;
+    string encode = huffman.encode(text);
     ofstream fout("output.txt");
     
     //cout << "Letter codes\n";
-    fout << haffman.code.size() << '\n';
-    for(auto u: haffman.code)
+    fout << huffman.code.size() << '\n';
+    for(auto u: huffman.code)
     {
         if(u.first == ' ') fout << "space" << ' ' << u.second << '\n';
         else if(u.first == '\n') fout << "enter" << ' ' << u.second << '\n';

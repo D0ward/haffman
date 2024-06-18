@@ -6,6 +6,7 @@
         "iosfwd": "cpp",
         "cmath": "cpp",
         "cstddef": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "xstring": "cpp"
     }
 }
