@@ -109,40 +109,62 @@ public:
 };
 
 
-int main(int size, const char** argv)
+int main(int argc, const char** argv)
 {
     //cout << "Enter file name:";
-    
-
-    ifstream fin(argv[1]);
-    //cout << argv[1] << '\n';
-    string strh;
-    string text;
+    //cout << argc << '\n';
+    //cout << argv[0] << ' ' << argv[1] << ' ' << argv[2] << '\n';
+    if(argc == 2)
+    {
+        ifstream fin(argv[1]);
+        //cout << argv[1] << '\n';
+        string strh;
+        string text;
  
-    while(!fin.eof()){
-        getline(fin, strh);
-        text += strh;
-        if (!fin.eof()){
-            text += '\n';
+        while(!fin.eof()){
+            getline(fin, strh);
+            text += strh;
+            if (!fin.eof()){
+                text += '\n';
+            }
+        }
+
+        //cout << "Size file : " << fin.tellg() << " byte" << '\n';
+
+        Huffman huffman;
+        string encode = huffman.encode(text);
+        ofstream fout("output.txt");
+    
+        //cout << "Letter codes\n";
+        fout << huffman.code.size() << '\n';
+        for(auto u: huffman.code)
+        {
+            if(u.first == ' ') fout << "space" << ' ' << u.second << '\n';
+            else if(u.first == '\n') fout << "enter" << ' ' << u.second << '\n';
+            else fout << u.first << ' ' << u.second << '\n';
+        }
+
+        fout << encode;
+    }
+    else
+    {
+        while (true)
+        {
+            Huffman huffman;
+
+            cout << "Enter text : ";
+            string text; cin >> text;
+
+            string encode = huffman.encode(text);
+            cout << "Encoded text : " << encode << '\n';
+            for(auto u: huffman.code)
+            {
+                if(u.first == ' ') cout << "space" << ' ' << u.second << '\n';
+                else if(u.first == '\n') cout << "enter" << ' ' << u.second << '\n';
+                else cout << u.first << ' ' << u.second << '\n';
+            }
         }
     }
-
-    //cout << "Size file : " << fin.tellg() << " byte" << '\n';
-
-    Huffman huffman;
-    string encode = huffman.encode(text);
-    ofstream fout("output.txt");
-    
-    //cout << "Letter codes\n";
-    fout << huffman.code.size() << '\n';
-    for(auto u: huffman.code)
-    {
-        if(u.first == ' ') fout << "space" << ' ' << u.second << '\n';
-        else if(u.first == '\n') fout << "enter" << ' ' << u.second << '\n';
-        else fout << u.first << ' ' << u.second << '\n';
-    }
-
-    fout << encode;
 
     return 0;
 }
